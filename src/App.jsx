@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  lazy,
-  Suspense,
-} from "react";
+import React, { useState, useMemo, useCallback, lazy, Suspense } from "react";
 import { requests as initialRequests } from "./data/requests";
 
 import SearchBar from "./components/SearchBar";
@@ -13,13 +7,9 @@ import SummaryCards from "./components/SummaryCards";
 import RequestList from "./components/RequestList";
 import RequestForm from "./components/RequestForm";
 
-const AnalyticsPanel = lazy(() =>
-  import("./components/AnalyticsPanel")
-);
+const AnalyticsPanel = lazy(() => import("./components/AnalyticsPanel"));
 
-const ReportPanel = lazy(() =>
-  import("./components/ReportPanel")
-);
+const ReportPanel = lazy(() => import("./components/ReportPanel"));
 
 function App() {
   console.log("App re-rendered");
@@ -49,21 +39,18 @@ function App() {
     });
 
     if (statusFilter) {
-      filtered = filtered.filter(
-        (req) => req.status === statusFilter
-      );
+      filtered = filtered.filter((req) => req.status === statusFilter);
     }
 
     if (sortBy === "priority") {
       filtered = [...filtered].sort((a, b) =>
-        a.priority.localeCompare(b.priority)
+        a.priority.localeCompare(b.priority),
       );
     }
 
     if (sortBy === "date") {
       filtered = [...filtered].sort(
-        (a, b) =>
-          new Date(b.createdAt) - new Date(a.createdAt)
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
       );
     }
 
@@ -89,14 +76,12 @@ function App() {
   const handleResolve = useCallback(
     (id) => {
       const updated = requests.map((req) =>
-        req.id === id
-          ? { ...req, status: "Resolved" }
-          : req
+        req.id === id ? { ...req, status: "Resolved" } : req,
       );
 
       setRequests(updated);
     },
-    [requests]
+    [requests],
   );
 
   const handleInputChange = useCallback((e) => {
@@ -121,15 +106,10 @@ function App() {
         priority: formData.priority,
         status: "Open",
         assignedWorker: "N/A",
-        createdAt: new Date()
-          .toISOString()
-          .split("T")[0],
+        createdAt: new Date().toISOString().split("T")[0],
       };
 
-      setRequests((prev) => [
-        ...prev,
-        newRequest,
-      ]);
+      setRequests((prev) => [...prev, newRequest]);
 
       setFormData({
         residentName: "",
@@ -141,22 +121,16 @@ function App() {
         visitDate: "",
       });
     },
-    [formData, requests]
+    [formData, requests],
   );
 
   return (
     <div className="app-container">
-      <h1>
-        Neighborhood Service Request Dashboard -
-        Optimization Lab
-      </h1>
+      <h1>Neighborhood Service Request Dashboard - Optimization Lab</h1>
 
       <SummaryCards requests={requests} />
 
-      <SearchBar
-        searchText={searchText}
-        onSearch={handleSearch}
-      />
+      <SearchBar searchText={searchText} onSearch={handleSearch} />
 
       <FilterPanel
         statusFilter={statusFilter}
@@ -182,9 +156,7 @@ function App() {
       </Suspense>
 
       <Suspense fallback={<p>Loading Report...</p>}>
-        <ReportPanel
-          selectedRequest={selectedRequest}
-        />
+        <ReportPanel selectedRequest={selectedRequest} />
       </Suspense>
     </div>
   );

@@ -1,103 +1,74 @@
 import React from "react";
 
-const InputField = React.memo(
-  ({ type, name, placeholder, value, onChange }) => (
-    <input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    />
-  )
-);
-
-const SelectField = React.memo(
-  ({ name, value, onChange, children }) => (
-    <select name={name} value={value} onChange={onChange}>
-      {children}
-    </select>
-  )
-);
-
-const TextAreaField = React.memo(
-  ({ name, placeholder, value, onChange }) => (
-    <textarea
-      name={name}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    />
-  )
-);
-
 function RequestForm({ formData, onChange, onSubmit }) {
   console.log("RequestForm re-rendered");
+
+  const {
+    residentName,
+    mobile,
+    area,
+    category,
+    priority,
+    visitDate,
+    description,
+  } = formData;
 
   return (
     <div className="card">
       <h3>New Request Form</h3>
 
       <form onSubmit={onSubmit} className="form-grid">
-        <InputField
+        <input
           type="text"
           name="residentName"
           placeholder="Resident Name"
-          value={formData.residentName}
+          value={residentName}
           onChange={onChange}
         />
 
-        <InputField
+        <input
           type="text"
           name="mobile"
           placeholder="Mobile Number"
-          value={formData.mobile}
+          value={mobile}
           onChange={onChange}
         />
 
-        <InputField
+        <input
           type="text"
           name="area"
           placeholder="Area"
-          value={formData.area}
+          value={area}
           onChange={onChange}
         />
 
-        <SelectField
-          name="category"
-          value={formData.category}
-          onChange={onChange}
-        >
+        <select name="category" value={category} onChange={onChange}>
           <option value="">Select Category</option>
           <option value="Water Leakage">Water Leakage</option>
           <option value="Garbage Pickup">Garbage Pickup</option>
           <option value="Streetlight Issue">Streetlight Issue</option>
           <option value="Road Damage">Road Damage</option>
           <option value="Drainage Blockage">Drainage Blockage</option>
-        </SelectField>
+        </select>
 
-        <SelectField
-          name="priority"
-          value={formData.priority}
-          onChange={onChange}
-        >
+        <select name="priority" value={priority} onChange={onChange}>
           <option value="">Select Priority</option>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
-        </SelectField>
+        </select>
 
-        <InputField
+        <input
           type="date"
           name="visitDate"
-          value={formData.visitDate}
+          value={visitDate}
           onChange={onChange}
         />
 
-        <TextAreaField
+        <textarea
           name="description"
           placeholder="Description"
-          value={formData.description}
+          value={description}
           onChange={onChange}
         />
 

@@ -1,11 +1,6 @@
 import React from "react";
 
-function FilterPanel({
-  statusFilter,
-  sortBy,
-  onStatusChange,
-  onSortChange,
-}) {
+function FilterPanel({ statusFilter, sortBy, onStatusChange, onSortChange }) {
   console.log("FilterPanel re-rendered");
 
   return (
@@ -23,10 +18,7 @@ function FilterPanel({
         <option value="Resolved">Resolved</option>
       </select>
 
-      <select
-        value={sortBy}
-        onChange={(e) => onSortChange(e.target.value)}
-      >
+      <select value={sortBy} onChange={(e) => onSortChange(e.target.value)}>
         <option value="">Sort By</option>
         <option value="priority">Priority</option>
         <option value="date">Date</option>
